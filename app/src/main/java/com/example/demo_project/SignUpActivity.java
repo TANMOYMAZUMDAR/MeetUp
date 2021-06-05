@@ -84,12 +84,12 @@ binding.cirRegisterButton.setOnClickListener(new View.OnClickListener() {
             binding.editTextPassword.setError("Enter a password");
             return;
         }
-        progreesDialog.show();
+      //  progreesDialog.show();
         mauth.createUserWithEmailAndPassword(binding.editTextEmail.getText().toString(), binding.editTextPassword.getText().toString()).
                 addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                       progreesDialog.dismiss();
+                      // progreesDialog.dismiss();
 
                         if (task.isSuccessful()) {
 
@@ -102,9 +102,9 @@ binding.cirRegisterButton.setOnClickListener(new View.OnClickListener() {
                             database.getReference().child("Users").child(id).setValue(user);
 
 
-
+                            startActivity(new Intent(SignUpActivity.this,AfterSignUpActivity.class));
                             Toast.makeText(SignUpActivity.this, "Congratulations! Account Created.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+
 
                         } else {
                             Toast.makeText(SignUpActivity.this, "Error : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

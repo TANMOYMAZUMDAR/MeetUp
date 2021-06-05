@@ -28,7 +28,7 @@
         android:layout_marginBottom="41dp"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
+        android:textStyle="italic"
         android:text="Logging In..." />
 
 
