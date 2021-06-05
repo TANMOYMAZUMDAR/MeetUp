@@ -56,16 +56,16 @@ private FirebaseAuth mauth;
                     binding.editTextPassword.setError("Enter your password");
                 return;
                 }
-
-                p.show();
+                //p.show();
                 mauth.signInWithEmailAndPassword(binding.editTextEmail.getText().toString(), binding.editTextPassword.getText().toString()).
                         addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                p.dismiss();
+                  //              p.dismiss();
                                 if (task.isSuccessful()) {
 
-                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, AfterLogInActivity.class));
+                                    overridePendingTransition(R.anim.slide_in_right,R.anim.stay);
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }

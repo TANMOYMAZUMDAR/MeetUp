@@ -81,7 +81,7 @@ UserAdapter userAdapter;
 ArrayList<Users> list= new ArrayList<>();
 //ArrayList<Users> newList=new ArrayList<Users>();
 ArrayList<String> ui=new ArrayList<>();
-String interest[]={"Art","Animae","Acting","Blogging","Book","Basketball","Bitcoin","CryptoCurrency","Car","Cricket","Coding","Chatting","Caring",
+String[] interest ={"Art","Animae","Acting","Blogging","Book","Basketball","Bitcoin","CryptoCurrency","Car","Cricket","Coding","Chatting","Caring",
         "Dance","Entertaining","Football","Fashion","Fun","Gaming","Music","Modelling","Photography","Painting",
         "Poetry","Reading","Travel","Yoga","Social Media","Studies","Job","Party","Relaxing"};
 int selectedPosition=-1;
@@ -440,6 +440,7 @@ int selectedPosition=-1;
     protected void onResume() {
         super.onResume();
         String currentId=FirebaseAuth.getInstance().getUid();
+        if(currentId != null)
         database.getReference().child("presence").child(currentId).setValue("Online");
     }
 
@@ -447,6 +448,8 @@ int selectedPosition=-1;
     protected void onPause() {
         super.onPause();
         String currentId = FirebaseAuth.getInstance().getUid();
+
+        if(currentId != null)
         database.getReference().child("presence").child(currentId).setValue("Offline");
     }
 
