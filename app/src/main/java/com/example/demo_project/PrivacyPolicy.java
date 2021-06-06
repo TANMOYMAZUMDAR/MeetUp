@@ -2,34 +2,27 @@ package com.example.demo_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebView;
 
-public class SplashScreenActivity extends AppCompatActivity {
-
+public class PrivacyPolicy extends AppCompatActivity {
+WebView webview;
+public String fileName="privacy.html";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
-
+        setContentView(R.layout.activity_privacy_policy);
         changeStatusBarColor();
-
-    new Handler().postDelayed(new Runnable() {
-        @Override
-        public void run() {
-            Intent intent=new Intent(SplashScreenActivity.this,LoginActivity.class);
-           startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right,R.anim.stay);
-        }
-    },5000);
-
+        getSupportActionBar().setTitle("Privacy Policy");
+        webview = (WebView) findViewById(R.id.privacyid);
+        // displaying content in WebView from html file that stored in assets folder
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.loadUrl("file:///android_asset/" + fileName);
 
     }
-
 
     private void changeStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -39,5 +32,4 @@ public class SplashScreenActivity extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.colorDarkAccent));
         }
     }
-
 }

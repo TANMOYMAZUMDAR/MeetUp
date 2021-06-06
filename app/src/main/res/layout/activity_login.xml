@@ -117,10 +117,12 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center">
                 <ImageView
+                    android:id="@+id/fb_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_facebook" />
                 <ImageView
+                    android:id="@+id/google_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

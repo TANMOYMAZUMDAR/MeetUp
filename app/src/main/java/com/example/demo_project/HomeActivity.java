@@ -345,7 +345,7 @@ int selectedPosition=-1;
 
 
     //For getting status.
-    database.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
+    database.getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
             .addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -461,12 +461,13 @@ int selectedPosition=-1;
         inflater.inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     private void changeStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 //            window.setStatusBarColor(Color.TRANSPARENT);
-            window.setStatusBarColor(getResources().getColor(R.color.register_bk_color));
+            window.setStatusBarColor(getResources().getColor(R.color.colorDarkAccent));
         }
     }
 
@@ -484,12 +485,14 @@ int selectedPosition=-1;
 
             case R.id.GroupChat:
                 startActivity(new Intent(HomeActivity.this,GroupChatActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
                 break;
 
 
             case R.id.MyProfile:
                 Intent i=new Intent(HomeActivity.this,SettingsActivity.class);
                 startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
                 break;
             case R.id.LogOut:
                 mauth.signOut();
@@ -498,7 +501,8 @@ int selectedPosition=-1;
                 Toast.makeText(this,"User Logged Out",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.About:
-                Toast.makeText(this,"About Clicked",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this,AboutActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
         }
         return super.onOptionsItemSelected(item);
     }

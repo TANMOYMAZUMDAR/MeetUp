@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.demo_project.Adapter.ChatAdapter;
 import com.example.demo_project.Adapter.GroupMessagesAdapter;
@@ -52,6 +55,9 @@ public class GroupChatActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Group Chat");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        changeStatusBarColor();
+
 
         senderUid=FirebaseAuth.getInstance().getUid();
         database = FirebaseDatabase.getInstance();
@@ -158,4 +164,15 @@ public class GroupChatActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left,android.R.anim.slide_out_right);
         return super.onSupportNavigateUp();
     }
+
+
+    private void changeStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setStatusBarColor(getResources().getColor(R.color.colorDarkAccent));
+        }
+    }
+
 }

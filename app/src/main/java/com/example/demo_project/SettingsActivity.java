@@ -8,8 +8,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -50,6 +53,8 @@ Uri pr;
         setContentView(binding.getRoot());
 
         getSupportActionBar().hide();
+        changeStatusBarColor();
+
 
        database= FirebaseDatabase.getInstance();
         storage=FirebaseStorage.getInstance();
@@ -62,7 +67,21 @@ Uri pr;
         p.setCancelable(false);
 
 
+      binding.privacyPolicy.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              startActivity(new Intent(SettingsActivity.this,PrivacyPolicy.class));
+              overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
+          }
+      });
 
+      binding.aboutInfo.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              startActivity(new Intent(SettingsActivity.this,AboutActivity.class));
+              overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
+          }
+      });
 
         binding.backarrow.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -153,4 +172,15 @@ Uri pr;
 
 
     }
+
+
+    private void changeStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setStatusBarColor(getResources().getColor(R.color.colorDarkAccent));
+        }
+    }
+
 }

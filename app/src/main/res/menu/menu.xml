@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="activities.HomeActivity">
 
-    <item
-        android:id="@+id/Search"
-        android:icon="@drawable/ic_baseline_search_24"
 
-        app:showAsAction="always|collapseActionView"
-        android:title="Search"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        />
+  <item
+      android:id="@+id/Search"
+      android:icon="@drawable/ic_baseline_search_24"
+      app:showAsAction="always|collapseActionView"
+      android:title="Search"
+      app:actionViewClass="androidx.appcompat.widget.SearchView"
+      />
+  <item
+      android:id="@+id/overflowMenu"
+      android:icon="@drawable/ic_baseline_more_vert_24"
+      android:title=""
+      app:showAsAction="always">
+
+  <menu>
     <item
-    android:id="@+id/GroupChat"
-    android:title="@string/group_chat"/>
+        android:id="@+id/GroupChat"
+        android:icon="@drawable/people"
+        android:title="@string/group_chat"/>
 
     <item
         android:id="@+id/MyProfile"
+        android:icon="@drawable/ic_baseline_account_circle_24"
         android:title="@string/my_profile"/>
     <item
-        android:id="@+id/LogOut"
-        android:title="@string/log_out"/>
-    <item
         android:id="@+id/About"
+        android:icon="@drawable/info"
         android:title="@string/about"
         />
+    <item
+        android:id="@+id/LogOut"
+        android:icon="@drawable/ic_baseline_power_settings_new_24"
+        android:title="@string/log_out"/>
 
-
+  </menu>
+  </item>
 </menu>

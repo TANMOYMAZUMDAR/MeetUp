@@ -69,8 +69,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
 
         final ImagePopup imagePopup = new ImagePopup(context);
-        imagePopup.setWindowHeight(500); // Optional
-        imagePopup.setWindowWidth(500); // Optional
+        imagePopup.setWindowHeight(800); // Optional
+        imagePopup.setWindowWidth(800); // Optional
         imagePopup.setBackgroundColor(Color.TRANSPARENT);  // Optional
         imagePopup.setFullScreen(false); // Optional
         imagePopup.setHideCloseIcon(true);  // Optional
