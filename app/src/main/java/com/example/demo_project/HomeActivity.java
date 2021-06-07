@@ -79,12 +79,13 @@ SharedPreferences sp;
 private FirebaseAuth mauth;
 ProgressDialog p;
 Users Statususer;
+
 ProgressDialog dialog;
 UserAdapter userAdapter;
-
+//UserAdapter newuserAdapter;
 ArrayList<Users> list= new ArrayList<>();
 //ArrayList<Users> newList=new ArrayList<Users>();
-ArrayList<String> ui=new ArrayList<>();
+//ArrayList<String> ui=new ArrayList<>();
 String[] interest ={"Art","Animae","Acting","Blogging","Book","Basketball","Bitcoin","CryptoCurrency","Car","Cricket","Coding","Chatting","Caring",
         "Dance","Entertaining","Football","Fashion","Fun","Gaming","Music","Modelling","Photography","Painting",
         "Poetry","Reading","Travel","Yoga","Social Media","Studies","Job","Party","Relaxing"};
@@ -116,6 +117,7 @@ int selectedPosition=-1;
 
     usersStatuses=new ArrayList<>();
     userAdapter=new UserAdapter(this,list);
+  //  newuserAdapter=new UserAdapter(this,list);
     statusAdapter=new TopStatusAdapter(this,usersStatuses);
     sp = PreferenceManager.getDefaultSharedPreferences(this);
     String id = sp.getString("UID", "");
@@ -125,53 +127,29 @@ int selectedPosition=-1;
     binding.statusList.setLayoutManager(layoutManager);
     binding.statusList.setAdapter(statusAdapter);
     binding.recyclerView.setAdapter(userAdapter);
-
+ //   binding.recyclerView.setAdapter(newuserAdapter);
 /**
-
+ui.clear();
     //existing user(Important)
   database.getReference().child("chats").addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-            list.clear();
+            newList.clear();
+            String str= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
             for(DataSnapshot datasnapshot:snapshot.getChildren())
             {
-                String str= FirebaseAuth.getInstance().getUid();
                 String str1=datasnapshot.getKey();
+                assert str1 != null;
                 String reciever=str1.substring(0,28);
                 str1=str1.substring(28);
 
-                if(str.equals(str1))
+                if(str.equals(str1)&&(!ui.contains(reciever)))
                 {
-
                     ui.add(reciever);
-                    database.getReference().child("Users").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                            list.clear();
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                if (reciever.equals(dataSnapshot.getKey())) {
-
-                                    Users user = dataSnapshot.getValue(Users.class);
-                                    user.setUserId(dataSnapshot.getKey());
-                                    list.add(user);
-                                }
-
-                            }
-                            userAdapter.notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                        }
-                    });
-
-
                 }
             }
-            if(list.size()==0)
-            Toast.makeText(HomeActivity.this,"Please select your interest to match with friends",Toast.LENGTH_SHORT).show();
+           // if(newList.size()==0)
+           // Toast.makeText(HomeActivity.this,"Please select your interest to match with friends",Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -179,20 +157,45 @@ int selectedPosition=-1;
 
         }
     });
-*/
+  for(int i=0;i<ui.size();i++) {
+      database.getReference().child("Users").child(ui.get(i)).addValueEventListener(new ValueEventListener() {
+          @Override
+          public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+              Users user = snapshot.getValue(Users.class);
+              newList.add(user);
+              newuserAdapter.notifyDataSetChanged();
+
+
+          }
+
+          @Override
+          public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+          }
+
+      });
+      if(ui.size()!=0)
+          Toast.makeText(HomeActivity.this,"Please select your interest to match with friends",Toast.LENGTH_SHORT).show();
+  }
+
+**/
 
 
     //Intial message
     if (list.size()==0) {
-        binding.recyclerView.showShimmerAdapter();
+       binding.recyclerView.showShimmerAdapter();
         binding.recyclerView.setVisibility(View.GONE);
         binding.recyclerView.hideShimmerAdapter();
+        binding.notfoundanimae.setVisibility(View.GONE);
+        binding.welcomeanimae.setVisibility(View.VISIBLE);
         binding.emptyView.setVisibility(View.VISIBLE);
     }
     else {
         binding.recyclerView.showShimmerAdapter();
         binding.recyclerView.setVisibility(View.VISIBLE);
         binding.emptyView.setVisibility(View.GONE);
+        binding.notfoundanimae.setVisibility(View.GONE);
+        binding.welcomeanimae.setVisibility(View.GONE);
     }
 
 
@@ -263,17 +266,20 @@ int selectedPosition=-1;
                                  }
                                  if(list.size()==0)
                                  {
-                                     binding.recyclerView.hideShimmerAdapter();
                                      binding.recyclerView.setVisibility(View.GONE);
-                                     binding.emptyView.setVisibility(View.VISIBLE);
+                                     binding.notfoundanimae.setVisibility(View.VISIBLE);
+                                     binding.welcomeanimae.setVisibility(View.GONE);
+                                     binding.emptyView.setVisibility(View.GONE);
                                      Toast.makeText(HomeActivity.this, "No user found with "+interest[selectedPosition]+" interest.Please select any other interest.", Toast.LENGTH_SHORT).show();
 
                                  }
                                  else
                                  {
-                                     binding.recyclerView.setVisibility(View.VISIBLE);
                                      binding.recyclerView.hideShimmerAdapter();
+                                     binding.recyclerView.setVisibility(View.VISIBLE);
                                      binding.emptyView.setVisibility(View.GONE);
+                                     binding.notfoundanimae.setVisibility(View.GONE);
+                                     binding.welcomeanimae.setVisibility(View.GONE);
                                  }
 
                                      userAdapter.notifyDataSetChanged();

@@ -33,18 +33,35 @@
         app:layout_constraintTop_toBottomOf="@+id/view3"
         tools:listitem="@layout/show_user"
         app:shimmer_demo_child_count="10"
-        app:shimmer_demo_duration="2000"
+        app:shimmer_demo_duration="5000"
         app:shimmer_demo_grid_child_count="2"
         app:shimmer_demo_layout="@layout/demo_layout"
         app:shimmer_demo_layout_manager_type="linear_vertical"
         app:shimmer_demo_angle="20"
         android:visibility="visible"/>
 
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/welcomeanimae"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/empty_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/homeactivityanimae" />
+
+
     <TextView
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-
+      android:layout_marginTop="170dp"
+        android:layout_height="100dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark"
         android:gravity="center"
         android:text="@string/no_result_found"
         android:visibility="gone"
@@ -52,6 +69,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view3" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/notfoundanimae"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/notfound" />
 
     <com.cooltechworks.views.shimmer.ShimmerRecyclerView
         android:id="@+id/statusList"
@@ -61,7 +90,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shimmer_demo_angle="20"
-        app:shimmer_demo_duration="2000"
+        app:shimmer_demo_duration="5000"
         app:shimmer_demo_child_count="10"
         app:shimmer_demo_grid_child_count="2"
         app:shimmer_demo_layout="@layout/demo_status"
