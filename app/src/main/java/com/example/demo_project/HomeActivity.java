@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,6 +31,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -40,6 +42,8 @@ import com.example.demo_project.Models.Users;
 import com.example.demo_project.Models.UsersStatus;
 import com.example.demo_project.databinding.ActivityHomeBinding;
 import com.example.demo_project.databinding.ActivityLoginBinding;
+import com.example.demo_project.databinding.ActivityResetPasswordBinding;
+import com.example.demo_project.databinding.SampleDialogBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -108,8 +112,6 @@ int selectedPosition=-1;
     dialog=new ProgressDialog(this);
     dialog.setTitle("Uploading Status....");
     dialog.setCancelable(false);
-
-
 
 
     usersStatuses=new ArrayList<>();
@@ -377,9 +379,7 @@ int selectedPosition=-1;
             return false;
         }
     });
-
-
-    }
+}
 
 
     @Override
@@ -508,16 +508,21 @@ int selectedPosition=-1;
     }
 
     private void showstartDialog(){
-    new AlertDialog.Builder(this)
-            .setTitle("Select Your Interest")
-            .setMessage("Kindly chose your interest first by clicking the '+' button to search for friends")
-            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).create().show();
+    SampleDialogBinding dialogBinding=SampleDialogBinding.inflate(getLayoutInflater());
+  AlertDialog d=new AlertDialog.Builder(this)
+       .setView(dialogBinding.getRoot())
+          .setCancelable(false)
+          .create();
 
+         d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+         d.getWindow().setWindowAnimations(R.style.DailogAnimation);
+        dialogBinding.OkayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                     d.dismiss();
+            }
+        });
+     d.show();
     }
 
 }

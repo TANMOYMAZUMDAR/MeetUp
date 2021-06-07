@@ -103,6 +103,7 @@ binding.cirRegisterButton.setOnClickListener(new View.OnClickListener() {
 
 
                             startActivity(new Intent(SignUpActivity.this,AfterSignUpActivity.class));
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
                             Toast.makeText(SignUpActivity.this, "Congratulations! Account Created.", Toast.LENGTH_SHORT).show();
 
 

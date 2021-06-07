@@ -45,5 +45,8 @@
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:paddingLeft">5dp</item>
     </style>
-
+     <style name="DailogAnimation">
+         <item name="android:windowEnterAnimation">@anim/slide_down_animation</item>
+         <item name="android:windowExitAnimation">@anim/slide_up_animation</item>
+     </style>
 </resources>

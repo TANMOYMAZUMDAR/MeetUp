@@ -92,6 +92,18 @@ public class LoginActivity extends AppCompatActivity {
         if (mauth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
         }
+
+
+       binding.forgotpassword.setOnClickListener(new View.OnClickListener() {
+           @Override
+          public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,ResetPasswordActivity.class));
+            }
+        });
+
+
+
+
     }
 
 

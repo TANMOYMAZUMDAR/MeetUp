@@ -35,10 +35,10 @@ public class AboutActivity extends AppCompatActivity {
                 .addItem(new Element().setTitle("Version 1.0"))
                 .addGroup("CONNECT WITH US!")
                 .addEmail("tmazumdar0@gmail.com")
-                .addWebsite("https://www.exposysdata.com/")
-                .addYoutube("https://www.youtube.com/channel/UCCdSuhhzWqmj9h9uyEl-JSA")   //Enter your youtube link here (replace with my channel link)
+                .addWebsite("www.exposysdata.com/")
+                .addYoutube("UCCdSuhhzWqmj9h9uyEl-JSA")   //Enter your youtube link here (replace with my channel link)
                 .addPlayStore("com.example.demo_project")   //Replace all this with your package name
-                .addInstagram("https://www.instagram.com/exposysdatalabs/?hl=en")    //Your instagram id
+                .addInstagram("exposysdatalabs")    //Your instagram id
                 .addItem(createCopyright())
                 .create();
         setContentView(aboutPage);

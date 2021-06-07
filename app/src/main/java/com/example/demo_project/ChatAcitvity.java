@@ -35,11 +35,14 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ChatAcitvity extends AppCompatActivity {
 ActivityChatAcitvityBinding binding;
@@ -52,6 +55,7 @@ FirebaseStorage storage;
 ProgressDialog dialog;
     String senderUid;
     String recieverUid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +67,6 @@ ProgressDialog dialog;
      dialog=new ProgressDialog(this);
      dialog.setMessage("Uploading image....");
      dialog.setCancelable(false);
-
 
 
 
@@ -236,7 +239,6 @@ binding.messageBox.addTextChangedListener(new TextWatcher() {
                 database.getReference().child("chats").child(recieverRoom).updateChildren(lastMsgObj);
 
 
-
                 database.getReference().child("chats")
                        .child(senderRoom)
                        .child("messages")
@@ -244,6 +246,7 @@ binding.messageBox.addTextChangedListener(new TextWatcher() {
                        .setValue(message).addOnSuccessListener(new OnSuccessListener<Void>() {
                    @Override
                    public void onSuccess(Void unused) {
+
                        database.getReference().child("chats")
                        .child(recieverRoom)
                                .child("messages")
@@ -261,6 +264,7 @@ binding.messageBox.addTextChangedListener(new TextWatcher() {
 
 
     }
+
 
 
     @Override
