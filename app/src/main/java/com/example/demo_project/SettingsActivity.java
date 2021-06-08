@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.VerifiedInputEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -79,6 +80,14 @@ Uri pr;
           @Override
           public void onClick(View v) {
               startActivity(new Intent(SettingsActivity.this,AboutActivity.class));
+              overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
+          }
+      });
+
+      binding.help.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              startActivity(new Intent(SettingsActivity.this,FeedBackActivity.class));
               overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
           }
       });

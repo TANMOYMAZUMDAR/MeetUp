@@ -6,6 +6,7 @@
     <color name="themeColor">#11CFC5</color>
     <color name="LineColor">#444747</color>
     <color name="colorLightAccent">#b5fdff</color>
+    <color name="colorMiddleAccent">#24E4E9</color>
     <color name="colorDarkAccent">#009B93</color>
     <color name="darkTextColor">#020000</color>
     <color name="contentTextColor">#020000</color>

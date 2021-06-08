@@ -50,8 +50,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="26dp"
+        android:fontFamily="@font/ubuntu_regular"
         android:textSize="18sp"
-        android:textStyle="italic"
+        android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
         android:text="Creating Account..." />
 </RelativeLayout>

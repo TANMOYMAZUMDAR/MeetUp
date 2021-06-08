@@ -18,12 +18,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResetPasswordActivity"
-            android:parentActivityName=".LoginActivity">
-        </activity>
-        <activity android:name=".PrivacyPolicy"></activity>
+        <activity android:name=".FeedBackActivity"></activity>
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:parentActivityName=".LoginActivity"></activity>
+        <activity android:name=".PrivacyPolicy" />
         <activity android:name=".AboutActivity" />
-        <activity android:name=".AfterSignUpActivity"></activity>
+        <activity android:name=".AfterSignUpActivity" />
         <activity android:name=".AfterLogInActivity" />
         <activity
             android:name=".SplashScreenActivity"
@@ -46,6 +47,10 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
