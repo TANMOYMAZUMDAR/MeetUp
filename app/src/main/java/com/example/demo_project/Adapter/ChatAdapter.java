@@ -26,7 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ChatAdapter extends RecyclerView.Adapter {
 
@@ -119,6 +121,8 @@ public class ChatAdapter extends RecyclerView.Adapter {
         if(holder.getClass()==SenderViewHolder.class) {
             ((SenderViewHolder) holder).SenderText.setText(message.getMessage());
             //set time using time strap
+            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+            ((SenderViewHolder)holder).SenderTime.setText(dateFormat.format(new Date(message.getTimestamp())));
 
             if(message.getMessage().equals("photo"))
             {
@@ -220,7 +224,8 @@ else
         {
             ((RecieverViewHolder)holder).RecieverText.setText(message.getMessage());
         //set time using time strap
-
+            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+            ((RecieverViewHolder)holder).RecieverTime.setText(dateFormat.format(new Date(message.getTimestamp())));
 
 
             if(message.getMessage().equals("photo"))
