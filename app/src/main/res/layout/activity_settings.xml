@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/colorMiddleAccent"
     tools:context=".SettingsActivity">
 
     <ImageView
@@ -43,10 +43,21 @@
             android:layout_marginRight="-30dp"
             app:srcCompat="@drawable/seetings_add" />
 
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/watch_animation"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="-55dp"
+            android:layout_marginRight="100dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/hi" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView

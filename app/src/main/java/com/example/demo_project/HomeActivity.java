@@ -43,6 +43,7 @@ import com.example.demo_project.Models.UsersStatus;
 import com.example.demo_project.databinding.ActivityHomeBinding;
 import com.example.demo_project.databinding.ActivityLoginBinding;
 import com.example.demo_project.databinding.ActivityResetPasswordBinding;
+import com.example.demo_project.databinding.AfterLogoutBinding;
 import com.example.demo_project.databinding.SampleDialogBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -501,10 +502,30 @@ ui.clear();
                 overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
                 break;
             case R.id.LogOut:
-                mauth.signOut();
-                startActivity(new Intent(HomeActivity.this,LoginActivity.class));
-                overridePendingTransition(R.anim.slide_in_left,android.R.anim.slide_out_right);
-                Toast.makeText(this,"User Logged Out",Toast.LENGTH_SHORT).show();
+                AfterLogoutBinding dialogbinding1=AfterLogoutBinding.inflate(getLayoutInflater());
+                AlertDialog d=new AlertDialog.Builder(this)
+                        .setView(dialogbinding1.getRoot())
+                        .setCancelable(false)
+                        .create();
+
+                d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                d.getWindow().setWindowAnimations(R.style.DailogAnimation);
+                dialogbinding1.CancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        d.dismiss();
+                    }
+                });
+                dialogbinding1.LogoutButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mauth.signOut();
+                        startActivity(new Intent(HomeActivity.this,LoginActivity.class));
+                        overridePendingTransition(R.anim.slide_in_left,android.R.anim.slide_out_right);
+                        Toast.makeText(HomeActivity.this,"User Logged Out",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                d.show();
                 break;
             case R.id.About:
                 startActivity(new Intent(HomeActivity.this,AboutActivity.class));

@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.example.demo_project.Models.Users;
 import com.example.demo_project.databinding.ActivitySettingsBinding;
-import com.example.demo_project.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
