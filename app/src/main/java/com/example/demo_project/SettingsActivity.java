@@ -83,6 +83,21 @@ Uri pr;
           }
       });
 
+      binding.invite.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent intent=new Intent(Intent.ACTION_SEND);
+              intent.setType("text/plain");
+              String shareBody="Enjoy the MeetUp app";  //Title of the message
+              String shareSub="Make friends with same interest on MeetUp!" +
+                      "It's a fast,simple and secure app which will allow you to chose your interest" +
+                      " and make new friends and chat with them for free.Get it at https://www.exposysdata.com/ ";   //Text of the message
+              intent.putExtra(Intent.EXTRA_SUBJECT,shareBody);
+              intent.putExtra(Intent.EXTRA_TEXT,shareSub);
+              startActivity(Intent.createChooser(intent,"Invite using"));
+          }
+      });
+
       binding.help.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
