@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,7 +42,7 @@ public class GroupChatActivity extends AppCompatActivity {
      GroupMessagesAdapter adapter;
     ArrayList<MessagesModel> messages;
     FirebaseDatabase database;
-
+    DatabaseReference reference;
     FirebaseAuth mauth;
     FirebaseStorage storage;
     ProgressDialog dialog;
@@ -61,6 +62,8 @@ public class GroupChatActivity extends AppCompatActivity {
 
         senderUid=FirebaseAuth.getInstance().getUid();
         database = FirebaseDatabase.getInstance();
+        reference=FirebaseDatabase.getInstance().getReference();
+        reference.keepSynced(true);
         storage=FirebaseStorage.getInstance();
         dialog=new ProgressDialog(this);
         dialog.setMessage("Uploading image....");

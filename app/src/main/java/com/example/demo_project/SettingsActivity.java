@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
@@ -43,6 +44,7 @@ ActivitySettingsBinding binding;
 FirebaseAuth mauth;
 FirebaseStorage storage;
 FirebaseDatabase database;
+DatabaseReference reference;
 ProgressDialog dialog;
 ProgressDialog p;
 Uri pr;
@@ -57,6 +59,8 @@ Uri pr;
 
 
        database= FirebaseDatabase.getInstance();
+        reference=FirebaseDatabase.getInstance().getReference();
+        reference.keepSynced(true);
         storage=FirebaseStorage.getInstance();
         dialog=new ProgressDialog(this);
         dialog.setTitle("Uploading profile picture....");

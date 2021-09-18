@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
@@ -33,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
   ActivitySignupBinding binding;
   private FirebaseAuth mauth;
   FirebaseDatabase database;
+  DatabaseReference reference;
   ProgressDialog progreesDialog;
   SharedPreferences sp;
     @Override
@@ -44,7 +46,8 @@ public class SignUpActivity extends AppCompatActivity {
          changeStatusBarColor();
         mauth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-
+          reference=FirebaseDatabase.getInstance().getReference();
+          reference.keepSynced(true);
         progreesDialog=new ProgressDialog(SignUpActivity.this);
         progreesDialog.setTitle("Creating Account");
         progreesDialog.setMessage("We are creating your account");

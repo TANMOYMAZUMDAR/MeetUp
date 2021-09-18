@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.demo_project.databinding.ActivityFeedBackBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
@@ -19,6 +20,7 @@ import java.util.Objects;
 public class FeedBackActivity extends AppCompatActivity {
   ActivityFeedBackBinding binding;
   FirebaseDatabase database;
+  DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,8 @@ public class FeedBackActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         changeStatusBarColor();
         database=FirebaseDatabase.getInstance();
+        reference=FirebaseDatabase.getInstance().getReference();
+        reference.keepSynced(true);
         binding.rbStars.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
             @Override

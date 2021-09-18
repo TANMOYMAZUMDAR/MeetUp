@@ -54,6 +54,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -77,6 +78,7 @@ TopStatusAdapter statusAdapter;
 ArrayList<UsersStatus> usersStatuses;
 FirebaseDatabase database;
 SharedPreferences sp;
+DatabaseReference reference;
 private FirebaseAuth mauth;
 ProgressDialog p;
 Users Statususer;
@@ -104,7 +106,8 @@ int selectedPosition=-1;
 
         changeStatusBarColor();
           database=FirebaseDatabase.getInstance();
-
+    reference=FirebaseDatabase.getInstance().getReference();
+    reference.keepSynced(true);
 
     p = new ProgressDialog(HomeActivity.this);
     p.setTitle("Scanning..");

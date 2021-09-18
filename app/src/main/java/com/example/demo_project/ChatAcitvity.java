@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -49,6 +50,7 @@ ActivityChatAcitvityBinding binding;
 ChatAdapter adapter;
 ArrayList<MessagesModel> messages;
 FirebaseDatabase database;
+DatabaseReference reference;
    String senderRoom,recieverRoom;
 FirebaseAuth mauth;
 FirebaseStorage storage;
@@ -63,11 +65,12 @@ ProgressDialog dialog;
         setContentView(binding.getRoot());
         changeStatusBarColor();
    database = FirebaseDatabase.getInstance();
+   reference = FirebaseDatabase.getInstance().getReference();
      storage=FirebaseStorage.getInstance();
      dialog=new ProgressDialog(this);
      dialog.setMessage("Uploading image....");
      dialog.setCancelable(false);
-
+reference.keepSynced(true);
 
 
    getSupportActionBar().hide();

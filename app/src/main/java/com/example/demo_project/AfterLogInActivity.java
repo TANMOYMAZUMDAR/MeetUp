@@ -28,9 +28,6 @@ public class AfterLogInActivity extends AppCompatActivity {
         },4000);
 
         changeStatusBarColor();
-
-
-
     }
 
     private void changeStatusBarColor() {
@@ -41,7 +38,5 @@ public class AfterLogInActivity extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.colorDarkAccent));
         }
     }
-
-
-
+    
 }
