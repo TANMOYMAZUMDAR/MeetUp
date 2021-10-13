@@ -58,6 +58,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceIdReceiver;
+import com.google.firebase.iid.internal.FirebaseInstanceIdInternal;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -82,7 +84,7 @@ DatabaseReference reference;
 private FirebaseAuth mauth;
 ProgressDialog p;
 Users Statususer;
-
+String token;
 ProgressDialog dialog;
 UserAdapter userAdapter;
 //UserAdapter newuserAdapter;
@@ -389,6 +391,9 @@ ui.clear();
             return false;
         }
     });
+
+    //   FirebaseInstanceId
+
 }
 
 

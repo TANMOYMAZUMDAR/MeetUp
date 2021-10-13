@@ -39,11 +39,21 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class ChatAcitvity extends AppCompatActivity {
 ActivityChatAcitvityBinding binding;
@@ -57,6 +67,9 @@ FirebaseStorage storage;
 ProgressDialog dialog;
     String senderUid;
     String recieverUid;
+    private byte encryptionKey[]={9,115,51,86,105,4,-31,-23,-68,88,17,20,3,-105,119,-53};
+private Cipher cipher,decipher;
+private SecretKeySpec secretKeySpec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +86,23 @@ ProgressDialog dialog;
 reference.keepSynced(true);
 
 
-   getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
    senderUid= FirebaseAuth.getInstance().getUid();
    recieverUid=getIntent().getStringExtra("UserId");
         String userName=getIntent().getStringExtra("UserName");
         String ProfilePic=getIntent().getStringExtra("ProfilePic");
+
+        try {
+            cipher=Cipher.getInstance("AES");
+            decipher=Cipher.getInstance("AES");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        }
+
+        secretKeySpec=new SecretKeySpec(encryptionKey,"AES");
 
 
            senderRoom=senderUid+recieverUid;
@@ -227,7 +251,10 @@ binding.messageBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void onClick(View v) {
                String msg= binding.messageBox.getText().toString();
-              Date date=new Date();
+
+               msg=AESEncryptionMethod(msg);
+
+               Date date=new Date();
                MessagesModel message=new MessagesModel(msg,senderUid,date.getTime());
 
                binding.messageBox.setText("");
@@ -235,8 +262,12 @@ binding.messageBox.addTextChangedListener(new TextWatcher() {
                String randomKey=database.getReference().push().getKey();
 
                 HashMap<String,Object> lastMsgObj=new HashMap<>();
-                lastMsgObj.put("lastMsg",message.getMessage());
-               lastMsgObj.put("lastMsgTime",date.getTime());
+                try {
+                    lastMsgObj.put("lastMsg",AESDecryptionMethod(message.getMessage()));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                lastMsgObj.put("lastMsgTime",date.getTime());
 
                 database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
                 database.getReference().child("chats").child(recieverRoom).updateChildren(lastMsgObj);
@@ -294,6 +325,9 @@ binding.messageBox.addTextChangedListener(new TextWatcher() {
                                     public void onSuccess(Uri uri) {
                                      String filePath=uri.toString();
                                       String msg= binding.messageBox.getText().toString();
+
+                                        msg=AESEncryptionMethod(msg);
+
              Date date=new Date();
                MessagesModel message=new MessagesModel(msg,senderUid,date.getTime());
                message.setMessage("photo");
@@ -303,8 +337,12 @@ binding.messageBox.addTextChangedListener(new TextWatcher() {
                String randomKey=database.getReference().push().getKey();
 
                                         HashMap<String,Object> lastMsgObj=new HashMap<>();
-                                        lastMsgObj.put("lastMsg",message.getMessage());
-                                  lastMsgObj.put("lastMsgTime",date.getTime());
+                                        try {
+                                            lastMsgObj.put("lastMsg",AESDecryptionMethod(message.getMessage())); //decryption karna hai
+                                        } catch (UnsupportedEncodingException e) {
+                                            e.printStackTrace();
+                                        }
+                                        lastMsgObj.put("lastMsgTime",date.getTime());
 
                                        database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
                                         database.getReference().child("chats").child(recieverRoom).updateChildren(lastMsgObj);
@@ -368,7 +406,57 @@ binding.messageBox.addTextChangedListener(new TextWatcher() {
     }
 
 
+public String AESEncryptionMethod(String string)
+{
+  byte[] stringByte=string.getBytes();
+  byte[] encryptedByte=new byte[stringByte.length];
 
+    try {
+        cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec);
+        encryptedByte=cipher.doFinal(stringByte);
+
+    } catch (InvalidKeyException e) {
+        e.printStackTrace();
+    } catch (BadPaddingException e) {
+        e.printStackTrace();
+    } catch (IllegalBlockSizeException e) {
+        e.printStackTrace();
+    }
+
+    String returnString=null;
+    try {
+        returnString=new String(encryptedByte,"ISO-8859-1");
+    } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+    }
+    return returnString;
+
+}
+
+private String AESDecryptionMethod(String string) throws UnsupportedEncodingException
+{
+
+        byte[] EncryptedByte=string.getBytes("ISO-8859-1");
+        String decryptedString=string;
+
+        byte[] decryption;
+
+    try {
+        decipher.init(cipher.DECRYPT_MODE,secretKeySpec);
+        decryption=decipher.doFinal(EncryptedByte);
+        decryptedString=new String(decryption);
+
+    } catch (InvalidKeyException e) {
+        e.printStackTrace();
+    } catch (BadPaddingException e) {
+        e.printStackTrace();
+    } catch (IllegalBlockSizeException e) {
+        e.printStackTrace();
+    }
+
+    return decryptedString;
+
+}
 
 
 

@@ -56,10 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         p.setTitle("LogIn");
         p.setMessage("Login to your existing account");
 
-
-
-
-
         binding.cirLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+
         //if user is not null means the user is logged in
         if (mauth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
