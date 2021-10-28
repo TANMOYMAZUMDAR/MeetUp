@@ -7,3 +7,6 @@ Video Demo Link-https://drive.google.com/file/d/1tZ-G8LlkFe5ELWDkBQVvOE7FzOdnv5u
 
 # ScreenPresentations
 
+<p align="center" href="https://asciinema.org/a/336257">
+  <img src="https://github.com/Ciphey/Ciphey/raw_data/lock_1.gif" alt="Ciphey demo" width=300px>
+</p>
